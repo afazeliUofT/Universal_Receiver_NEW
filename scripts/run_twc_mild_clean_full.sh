@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-PROJECT_ROOT="/home/rsadve1/PROJECT/Universal_Receiver"
+PROJECT_ROOT="/home/rsadve1/PROJECT/Universal_Receiver_NEW"
 
 source "${PROJECT_ROOT}/venv_universal_receiver/bin/activate"
 cd "${PROJECT_ROOT}"

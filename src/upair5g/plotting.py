@@ -12,14 +12,14 @@ from .config import ensure_output_tree
 from .utils import tensor7_to_btfnc
 
 PLOT_LABELS = {
-    "baseline_ls_lmmse": "LS+linear+LMMSE",
-    "baseline_ls_timeavg_lmmse": "LS+lin_time_avg+LMMSE",
-    "baseline_ls_2dlmmse_lmmse": "LS+2D-LMMSE+LMMSE",
-    "baseline_ddcpe_ls_lmmse": "DD-CPE+LS+LMMSE",
-    "paper_cfgres_ls_lmmse": "Paper-style cfg reservoir+LMMSE",
-    "paper_cfgres_phaseaware_ls_lmmse": "Phase-aware paper cfg reservoir+LMMSE",
-    "upair5g_lmmse": "UPAIR-5G+LMMSE",
-    "perfect_csi_lmmse": "Perfect CSI+LMMSE",
+    "baseline_ls_lmmse": "LS",
+    "baseline_ls_timeavg_lmmse": "LS + time-avg",
+    "baseline_ls_2dlmmse_lmmse": "LS + 2D LMMSE",
+    "baseline_ddcpe_ls_lmmse": "DD-CPE + LS",
+    "paper_cfgres_ls_lmmse": "Configured reservoir",
+    "paper_cfgres_phaseaware_ls_lmmse": "Configured reservoir",
+    "upair5g_lmmse": "UPAIR-5G",
+    "perfect_csi_lmmse": "Perfect CSI",
 }
 
 PLOT_ORDER = [

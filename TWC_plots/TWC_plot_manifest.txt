@@ -1,8 +1,0 @@
-Fig01_mild_main_curves.pdf/png
-Fig02_mild_main_focus.pdf/png
-Fig03_mild_main_upair_gain.pdf/png
-Fig04_mild_main_channel_error_maps.pdf/png
-Fig05_mild_crossscenario_metrics_grid.pdf/png
-Fig06_mild_crossscenario_upair_gain.pdf/png
-tables/mild_main_gain.csv
-tables/mild_crossscenario_gain.csv

@@ -1,0 +1,13 @@
+{
+  "scenario": "twc_mild_dmrsrich",
+  "preserved_receivers": [
+    "baseline_ls_lmmse",
+    "baseline_ddcpe_ls_lmmse",
+    "upair5g_lmmse",
+    "perfect_csi_lmmse"
+  ],
+  "added_receiver": "baseline_ls_2dlmmse_lmmse",
+  "source_existing_curves": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/outputs/twc_mild_dmrsrich/metrics/curves.csv",
+  "output_csv": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/TWC_plots2/csv/twc_mild_dmrsrich_curves.csv",
+  "num_rows": 75
+}

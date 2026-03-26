@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-PROJECT_ROOT="/home/rsadve1/PROJECT/Universal_Receiver"
+PROJECT_ROOT="/home/rsadve1/PROJECT/Universal_Receiver_NEW"
 
 rm -rf "${PROJECT_ROOT}/outputs/twc_mild_main"
 rm -rf "${PROJECT_ROOT}/outputs/twc_mild_clean"
