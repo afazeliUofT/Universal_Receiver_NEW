@@ -1,0 +1,136 @@
+experiment:
+  name: twc_mild_dmrsrich
+  output_root: outputs
+
+system:
+  seed: 7
+  precision: single
+  batch_size_train: 48
+  batch_size_eval: 96
+  ebno_db_train_min: 0.0
+  ebno_db_train_max: 18.0
+  ebno_db_eval: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+
+pusch:
+  carrier_frequency_hz: 3.5e9
+  subcarrier_spacing_khz: 30
+  n_size_grid: 16
+  n_size_bwp: 16
+  cyclic_prefix: normal
+  mapping_type: A
+  symbol_allocation: [0, 14]
+  num_layers: 1
+  num_antenna_ports: 1
+  precoding: non-codebook
+  transform_precoding: false
+  mcs_index: 15
+  mcs_table: qam64
+  dmrs:
+    config_type: 1
+    length: 1
+    additional_position: 1
+    type_a_position: 2
+    num_cdm_groups_without_data: 2
+
+channel:
+  model: C
+  delay_spread_s: 3.0e-7
+  min_speed_mps: 8.33
+  max_speed_mps: 16.67
+  num_rx_ant: 2
+  num_tx_ant: 1
+  normalize_channel: true
+
+impairments:
+  enabled: true
+  train:
+    cpe_sigma_rad: 0.012
+    slope_range_rad: [-0.08, 0.08]
+    rw_sigma_rad: 0.004
+  eval:
+    cpe_sigma_rad: 0.015
+    slope_rad: 0.05
+    rw_sigma_rad: 0.005
+
+model:
+  d_model: 96
+  num_blocks: 4
+  num_heads: 4
+  mlp_ratio: 2.0
+  dropout: 0.05
+  residual_scale: 0.35
+  use_noise_feature: true
+  use_pilot_mask_feature: true
+
+training:
+  steps: 5000
+  val_steps: 96
+  log_every: 100
+  eval_every: 250
+  learning_rate: 3.0e-4
+  weight_decay: 1.0e-5
+  nmse_loss_weight: 0.10
+  grad_clip_norm: 1.0
+  checkpoint_name: best.weights.h5
+
+evaluation:
+  num_batches_per_point: 1024
+  min_num_batches_per_point: 256
+  max_num_batches_per_point: 1024
+  target_block_errors_per_receiver: 100
+  stopping_receivers:
+    - baseline_ls_lmmse
+    - baseline_ddcpe_ls_lmmse
+    - paper_cfgres_phaseaware_ls_lmmse
+    - upair5g_lmmse
+  reliable_min_block_errors: 20
+  reliable_min_bit_errors: 100
+  save_example_batch: true
+
+baselines:
+  enabled_receivers:
+    - baseline_ls_lmmse
+    - baseline_ddcpe_ls_lmmse
+    - paper_cfgres_phaseaware_ls_lmmse
+    - upair5g_lmmse
+    - perfect_csi_lmmse
+  covariance_estimation:
+    cache_name: empirical_covariances.npz
+    reuse_cache: true
+    num_batches: 24
+    batch_size: 48
+    order: f-t-s
+    use_spatial_smoothing: true
+    use_training_impairments: false
+    diagonal_loading: 1.0e-4
+    normalize_trace: false
+  phase_aware_ddcpe:
+    num_iterations: 2
+    smoothing_kernel: [1.0, 2.0, 3.0, 2.0, 1.0]
+    weight_power: 1.0
+    max_abs_residual_rad: 0.40
+    anchor_to_dmrs: true
+  paper_configured_reservoir_phasefair:
+    covariance_cache_name: paper_cfgres_phasefair_covariances.npz
+    basis_artifact_name: paper_cfgres_phasefair_basis.npz
+    reuse_cache: true
+    use_impairment_aware_covariance: true
+    num_batches: 24
+    batch_size: 48
+    diagonal_loading: 1.0e-4
+    normalize_trace: false
+    order: f-t-s
+    use_spatial_smoothing: true
+    time_rank: 6
+    freq_rank: 10
+    freq_extra_dct_modes: 4
+    time_extra_phase_slopes_rad: [-0.12, -0.06, 0.0, 0.06, 0.12]
+    extra_mode_prior_scale: 0.15
+    min_prior_var: 1.0e-4
+    posterior_jitter: 1.0e-5
+    pilot_weight: 1.0
+    ls_blend: 0.55
+    err_inflation: 1.0
+    phase_precondition_with_ddcpe: true
+    anchor_ratio_phase_to_dmrs: true
+    max_relative_residual_power: 0.30
