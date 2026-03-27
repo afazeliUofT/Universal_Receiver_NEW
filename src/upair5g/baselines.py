@@ -26,6 +26,8 @@ DEFAULT_ENABLED_RECEIVERS = [
     PERFECT_RECEIVER,
 ]
 
+EMPIRICAL_COVARIANCE_CACHE_VERSION = 2
+
 
 def enabled_receivers_from_cfg(cfg: dict[str, Any]) -> list[str]:
     configured = get_cfg(cfg, "baselines.enabled_receivers", None)
@@ -46,6 +48,38 @@ def wants_receiver(cfg: dict[str, Any], receiver_name: str) -> bool:
 def _covariance_cache_path(paths: dict[str, Path], cfg: dict[str, Any]) -> Path:
     cache_name = str(get_cfg(cfg, "baselines.covariance_estimation.cache_name", "empirical_covariances.npz"))
     return paths["artifacts"] / cache_name
+
+
+def _use_training_impairments_for_covariance(cfg: dict[str, Any]) -> bool:
+    return bool(get_cfg(cfg, "baselines.covariance_estimation.use_training_impairments", False))
+
+
+def _load_cached_empirical_covariances(
+    cache_path: Path,
+    cfg: dict[str, Any],
+) -> dict[str, tf.Tensor] | None:
+    if not cache_path.exists():
+        return None
+
+    payload = np.load(cache_path)
+
+    version_arr = np.asarray(payload.get("cache_format_version", np.asarray([0], dtype=np.int32)))
+    cache_version = int(version_arr.reshape(-1)[0]) if version_arr.size > 0 else 0
+    if cache_version != EMPIRICAL_COVARIANCE_CACHE_VERSION:
+        return None
+
+    cached_use_training = np.asarray(payload.get("use_training_impairments", np.asarray([0], dtype=np.int32)))
+    cached_use_training_flag = bool(int(cached_use_training.reshape(-1)[0])) if cached_use_training.size > 0 else False
+    requested_use_training_flag = _use_training_impairments_for_covariance(cfg)
+    if cached_use_training_flag != requested_use_training_flag:
+        return None
+
+    return {
+        "cov_mat_time": tf.convert_to_tensor(payload["cov_mat_time"], dtype=tf.complex64),
+        "cov_mat_freq": tf.convert_to_tensor(payload["cov_mat_freq"], dtype=tf.complex64),
+        "cov_mat_space": tf.convert_to_tensor(payload["cov_mat_space"], dtype=tf.complex64),
+        "cache_path": tf.convert_to_tensor(str(cache_path)),
+    }
 
 
 def _rows_count(x: tf.Tensor) -> float:
@@ -85,18 +119,14 @@ def estimate_empirical_covariances(
 ) -> dict[str, tf.Tensor]:
     cache_path = _covariance_cache_path(paths, cfg)
     reuse_cache = bool(get_cfg(cfg, "baselines.covariance_estimation.reuse_cache", True))
-    if reuse_cache and cache_path.exists():
-        payload = np.load(cache_path)
-        return {
-            "cov_mat_time": tf.convert_to_tensor(payload["cov_mat_time"], dtype=tf.complex64),
-            "cov_mat_freq": tf.convert_to_tensor(payload["cov_mat_freq"], dtype=tf.complex64),
-            "cov_mat_space": tf.convert_to_tensor(payload["cov_mat_space"], dtype=tf.complex64),
-            "cache_path": tf.convert_to_tensor(str(cache_path)),
-        }
+    if reuse_cache:
+        cached = _load_cached_empirical_covariances(cache_path, cfg)
+        if cached is not None:
+            return cached
 
     num_batches = int(get_cfg(cfg, "baselines.covariance_estimation.num_batches", 8))
     batch_size = int(get_cfg(cfg, "baselines.covariance_estimation.batch_size", 32))
-    use_training_impairments = bool(get_cfg(cfg, "baselines.covariance_estimation.use_training_impairments", False))
+    use_training_impairments = _use_training_impairments_for_covariance(cfg)
     regularization = float(get_cfg(cfg, "baselines.covariance_estimation.diagonal_loading", 1e-4))
     normalize_trace = bool(get_cfg(cfg, "baselines.covariance_estimation.normalize_trace", False))
 
@@ -107,16 +137,18 @@ def estimate_empirical_covariances(
     count_f = 0.0
     count_s = 0.0
 
+    covariance_mode = "training-impairment-aware" if use_training_impairments else "clean-channel"
     print(
         "[BASELINES] Estimating empirical LMMSE covariances "
         f"with num_batches={num_batches} batch_size={batch_size} "
-        f"use_training_impairments={use_training_impairments}"
+        f"mode={covariance_mode}"
     )
 
     for _ in range(num_batches):
         x, _ = call_transmitter(tx, batch_size)
         y, h = call_channel(channel, x, tf.constant(0.0, tf.float32))
-        _, h = apply_symbol_phase_impairment(y, h, cfg, training=use_training_impairments)
+        if use_training_impairments:
+            _, h = apply_symbol_phase_impairment(y, h, cfg, training=True)
         if h is None:
             raise ValueError("Channel did not return the true channel tensor needed for covariance estimation.")
 
@@ -158,6 +190,7 @@ def estimate_empirical_covariances(
 
     np.savez_compressed(
         cache_path,
+        cache_format_version=np.asarray([EMPIRICAL_COVARIANCE_CACHE_VERSION], dtype=np.int32),
         cov_mat_time=np.asarray(cov_mat_time.numpy()),
         cov_mat_freq=np.asarray(cov_mat_freq.numpy()),
         cov_mat_space=np.asarray(cov_mat_space.numpy()),
