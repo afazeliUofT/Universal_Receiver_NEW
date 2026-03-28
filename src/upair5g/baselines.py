@@ -26,7 +26,7 @@ DEFAULT_ENABLED_RECEIVERS = [
     PERFECT_RECEIVER,
 ]
 
-EMPIRICAL_COVARIANCE_CACHE_VERSION = 2
+EMPIRICAL_COVARIANCE_CACHE_VERSION = 3
 
 
 def enabled_receivers_from_cfg(cfg: dict[str, Any]) -> list[str]:
@@ -107,7 +107,9 @@ def _normalize_trace(mat: tf.Tensor) -> tf.Tensor:
 
 def _covariance_from_rows(rows: tf.Tensor) -> tuple[tf.Tensor, float]:
     rows = tf.cast(tf.convert_to_tensor(rows), tf.complex64)
-    gram = tf.matmul(rows, rows, adjoint_a=True)
+    # rows has shape [num_samples, dim]. We want the covariance with entries
+    # C[i, j] = E[h_i * conj(h_j)], which matches Sionna's covariance format.
+    gram = tf.matmul(tf.transpose(rows), tf.math.conj(rows))
     return gram, _rows_count(rows)
 
 

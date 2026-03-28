@@ -1,0 +1,25 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) CCconfig        6)  ucx/1.14.1         11) flexiblas/3.3.1
+  2) gentoo/2023     7)  libfabric/1.18.0   12) blis/0.9.0
+  3) gcccore/.12.3   8)  pmix/4.2.4         13) StdEnv/2023
+  4) gcc/12.3        9)  ucc/1.2.0
+  5) hwloc/2.9.1     10) openmpi/4.1.5
+[BASELINES] Estimating empirical LMMSE covariances with num_batches=24 batch_size=48 mode=clean-channel
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 0.0 dB BER=1.60198e-01 BLER=1.00000e+00 NMSE=4.18138e-02 bit_err=23685205/147849216 blk_err=24576/24576  batches= 256
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 1.0 dB BER=1.36534e-01 BLER=1.00000e+00 NMSE=3.65293e-02 bit_err=20186463/147849216 blk_err=24576/24576  batches= 256
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 2.0 dB BER=1.07018e-01 BLER=1.00000e+00 NMSE=3.22865e-02 bit_err=15822523/147849216 blk_err=24576/24576  batches= 256
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 3.0 dB BER=5.81413e-02 BLER=9.36157e-01 NMSE=2.85681e-02 bit_err=8596153/147849216 blk_err=23007/24576  batches= 256
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 4.0 dB BER=1.46989e-02 BLER=3.36548e-01 NMSE=2.53932e-02 bit_err=2173227/147849216 blk_err= 8271/24576  batches= 256
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 5.0 dB BER=2.86228e-03 BLER=7.48698e-02 NMSE=2.29307e-02 bit_err=423186/147849216 blk_err= 1840/24576  batches= 256
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 6.0 dB BER=5.29837e-04 BLER=1.52588e-02 NMSE=2.09380e-02 bit_err= 78336/147849216 blk_err=  375/24576  batches= 256
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 7.0 dB BER=1.04280e-04 BLER=2.90158e-03 NMSE=1.91232e-02 bit_err= 21621/207335424 blk_err=  100/34464  batches= 359
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 8.0 dB BER=2.44185e-05 BLER=5.90007e-04 NMSE=1.76522e-02 bit_err= 14441/591396864 blk_err=   58/98304  batches=1024
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0= 9.0 dB BER=1.39179e-05 BLER=3.66211e-04 NMSE=1.64733e-02 bit_err=  8231/591396864 blk_err=   36/98304  batches=1024
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0=10.0 dB BER=3.08253e-06 BLER=7.12077e-05 NMSE=1.54948e-02 bit_err=  1823/591396864 blk_err=    7/98304  batches=1024
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0=11.0 dB BER=8.87729e-07 BLER=1.01725e-05 NMSE=1.46803e-02 bit_err=   525/591396864 blk_err=    1/98304  batches=1024
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0=12.0 dB BER=1.29693e-06 BLER=2.03451e-05 NMSE=1.41236e-02 bit_err=   767/591396864 blk_err=    2/98304  batches=1024
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0=13.0 dB BER=1.16673e-06 BLER=1.01725e-05 NMSE=1.35414e-02 bit_err=   690/591396864 blk_err=    1/98304  batches=1024
+[EVAL] receiver=baseline_ls_2dlmmse_lmmse Eb/N0=14.0 dB BER=9.04638e-07 BLER=1.01725e-05 NMSE=1.31940e-02 bit_err=   535/591396864 blk_err=    1/98304  batches=1024
+[TWC_PLOTS2] wrote /home/rsadve1/PROJECT/Universal_Receiver_NEW/TWC_plots2/csv/twc_mild_clean_curves.csv
