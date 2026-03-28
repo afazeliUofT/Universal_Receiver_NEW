@@ -1,8 +1,0 @@
-{
-  "best_bler_baseline": 0.027864583333333335,
-  "best_bler_upair5g": 0.00026041666666666666,
-  "best_nmse_baseline": 0.07632099684948722,
-  "best_nmse_upair5g": 0.013404336470800141,
-  "checkpoint_path": "/home/rsadve1/PROJECT/Universal_Receiver/outputs/upair_cdlc_highmobility/checkpoints/best.weights.h5",
-  "curves_csv": "/home/rsadve1/PROJECT/Universal_Receiver/outputs/upair_cdlc_highmobility/metrics/curves.csv"
-}
