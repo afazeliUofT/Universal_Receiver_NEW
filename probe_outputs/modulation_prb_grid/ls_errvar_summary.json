@@ -1,0 +1,56 @@
+{
+  "repo_root": "/home/rsadve1/PROJECT/Universal_Receiver_NEW",
+  "out_dir": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid",
+  "sionna_version": "1.2.1",
+  "rx_ant": 0,
+  "ebno_db_override": null,
+  "cases": [
+    {
+      "config": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/configs/twc_mild_clean.yaml",
+      "ebno_db": 7.0,
+      "noise_variance_no": 0.11694987863302231,
+      "rx_ant": 0,
+      "effective_tb_mcs_index": 15,
+      "effective_tb_mcs_table": 1,
+      "effective_num_bits_per_symbol": 4,
+      "effective_modulation_name": "16-QAM",
+      "effective_target_coderate": 0.6015625,
+      "num_resource_blocks": 16,
+      "num_subcarriers": 192,
+      "dmrs_symbol_indices": [
+        2
+      ],
+      "tx_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_tx_grid.png",
+      "hls_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_hls_rx0.png",
+      "errvar_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_errvar_rx0.png",
+      "errvar_mean_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_errvar_mean.png",
+      "overview_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_overview_rx0.png",
+      "values_npz": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_values_rx0.npz",
+      "values_csv": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_values_rx0.csv"
+    },
+    {
+      "config": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/configs/twc_mild_dmrsrich.yaml",
+      "ebno_db": 7.0,
+      "noise_variance_no": 0.1266956925392151,
+      "rx_ant": 0,
+      "effective_tb_mcs_index": 15,
+      "effective_tb_mcs_table": 1,
+      "effective_num_bits_per_symbol": 4,
+      "effective_modulation_name": "16-QAM",
+      "effective_target_coderate": 0.6015625,
+      "num_resource_blocks": 16,
+      "num_subcarriers": 192,
+      "dmrs_symbol_indices": [
+        2,
+        11
+      ],
+      "tx_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_tx_grid.png",
+      "hls_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_hls_rx0.png",
+      "errvar_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_errvar_rx0.png",
+      "errvar_mean_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_errvar_mean.png",
+      "overview_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_overview_rx0.png",
+      "values_npz": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_values_rx0.npz",
+      "values_csv": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_values_rx0.csv"
+    }
+  ]
+}
