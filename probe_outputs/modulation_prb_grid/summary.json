@@ -1,0 +1,41 @@
+{
+  "repo_root": "/home/rsadve1/PROJECT/Universal_Receiver_NEW",
+  "sionna_version": "1.2.1",
+  "cases": [
+    {
+      "config": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/configs/twc_mild_clean.yaml",
+      "mcs_index_from_yaml": 15,
+      "mcs_table_from_yaml": "qam64",
+      "effective_tb_mcs_index": 15,
+      "effective_tb_mcs_table": 1,
+      "effective_num_bits_per_symbol": 4,
+      "effective_modulation_name": "16-QAM",
+      "effective_target_coderate": 0.6015625,
+      "num_resource_blocks": 16,
+      "num_subcarriers": 192,
+      "dmrs_symbol_indices": [
+        2
+      ],
+      "prb0_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_prb0_grid.png",
+      "constellation_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_clean_data_constellation.png"
+    },
+    {
+      "config": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/configs/twc_mild_dmrsrich.yaml",
+      "mcs_index_from_yaml": 15,
+      "mcs_table_from_yaml": "qam64",
+      "effective_tb_mcs_index": 15,
+      "effective_tb_mcs_table": 1,
+      "effective_num_bits_per_symbol": 4,
+      "effective_modulation_name": "16-QAM",
+      "effective_target_coderate": 0.6015625,
+      "num_resource_blocks": 16,
+      "num_subcarriers": 192,
+      "dmrs_symbol_indices": [
+        2,
+        11
+      ],
+      "prb0_grid_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_prb0_grid.png",
+      "constellation_png": "/home/rsadve1/PROJECT/Universal_Receiver_NEW/probe_outputs/modulation_prb_grid/twc_mild_dmrsrich_data_constellation.png"
+    }
+  ]
+}
